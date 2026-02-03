@@ -35,6 +35,8 @@ public class WarpYamlStorage implements WarpStorage {
         cfg.set(p + ".z", warp.z());
         cfg.set(p + ".yaw", warp.yaw());
         cfg.set(p + ".pitch", warp.pitch());
+        cfg.set(p + ".slot", warp.slot());
+        cfg.set(p + ".icon", warp.icon());
         saveFile();
     }
 
@@ -47,7 +49,9 @@ public class WarpYamlStorage implements WarpStorage {
                 cfg.getDouble(name + ".y"),
                 cfg.getDouble(name + ".z"),
                 (float) cfg.getDouble(name + ".yaw"),
-                (float) cfg.getDouble(name + ".pitch"));
+                (float) cfg.getDouble(name + ".pitch"),
+                cfg.getInt(name + ".slot", -1),
+                cfg.getString(name + ".icon", "ENDER_PEARL"));
     }
 
     @Override
@@ -65,7 +69,7 @@ public class WarpYamlStorage implements WarpStorage {
     public void rename(String oldName, String newName) {
         Warp w = load(oldName);
         delete(oldName);
-        if (w != null) save(new Warp(newName, w.world(), w.x(), w.y(), w.z(), w.yaw(), w.pitch()));
+        if (w != null) save(new Warp(newName, w.world(), w.x(), w.y(), w.z(), w.yaw(), w.pitch(), w.slot(), w.icon()));
     }
 
     private void saveFile() {

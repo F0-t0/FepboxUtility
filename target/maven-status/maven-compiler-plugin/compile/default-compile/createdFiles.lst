@@ -6,6 +6,7 @@ com\fepbox\utility\config\MessageProvider.class
 com\fepbox\utility\command\KickAllCommand.class
 com\fepbox\utility\listener\CombatListener.class
 com\fepbox\utility\listener\InventoryListener.class
+com\fepbox\utility\service\WarpService$PendingWarp.class
 com\fepbox\utility\command\ReplyCommand.class
 com\fepbox\utility\model\TpaRequest.class
 com\fepbox\utility\listener\PlayerMoveListener.class
@@ -17,6 +18,7 @@ com\fepbox\utility\service\HomeService.class
 com\fepbox\utility\model\Warp.class
 com\fepbox\utility\storage\impl\yaml\HomeYamlStorage.class
 com\fepbox\utility\command\HatCommand.class
+com\fepbox\utility\listener\ChatCreateWarpListener.class
 com\fepbox\utility\storage\impl\sql\TpaSqlStorage.class
 com\fepbox\utility\command\InvseeCommand.class
 com\fepbox\utility\FepboxUtilityPlugin.class
@@ -32,6 +34,7 @@ com\fepbox\utility\command\ReloadCommand.class
 com\fepbox\utility\storage\impl\yaml\WarpYamlStorage.class
 com\fepbox\utility\service\UtilityService.class
 com\fepbox\utility\storage\impl\yaml\TpaYamlStorage.class
+com\fepbox\utility\gui\CreateWarpGui.class
 com\fepbox\utility\storage\StorageType.class
 com\fepbox\utility\config\ConfigManager.class
 com\fepbox\utility\command\FlyCommand.class

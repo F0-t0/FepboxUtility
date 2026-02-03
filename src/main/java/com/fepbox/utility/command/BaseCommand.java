@@ -2,6 +2,7 @@ package com.fepbox.utility.command;
 
 import com.fepbox.utility.config.ConfigManager;
 import com.fepbox.utility.config.MessageProvider;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,6 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public abstract class BaseCommand implements CommandExecutor, TabCompleter {
     protected final JavaPlugin plugin;
@@ -55,5 +58,14 @@ public abstract class BaseCommand implements CommandExecutor, TabCompleter {
             return false;
         }
         return true;
+    }
+
+    protected List<String> onlinePlayers(String prefix) {
+        String low = prefix == null ? "" : prefix.toLowerCase(Locale.ROOT);
+        return Bukkit.getOnlinePlayers().stream()
+                .map(Player::getName)
+                .filter(n -> n.toLowerCase(Locale.ROOT).startsWith(low))
+                .sorted()
+                .collect(Collectors.toList());
     }
 }

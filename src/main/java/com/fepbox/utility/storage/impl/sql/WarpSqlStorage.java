@@ -22,13 +22,13 @@ public class WarpSqlStorage implements WarpStorage {
     @Override
     public void init() {
         try (Connection c = pool.connection(); Statement st = c.createStatement()) {
-            st.executeUpdate("CREATE TABLE IF NOT EXISTS warps(name TEXT PRIMARY KEY, world TEXT, x REAL, y REAL, z REAL, yaw REAL, pitch REAL)");
+            st.executeUpdate("CREATE TABLE IF NOT EXISTS warps(name TEXT PRIMARY KEY, world TEXT, x REAL, y REAL, z REAL, yaw REAL, pitch REAL, slot INTEGER, icon TEXT)");
         } catch (SQLException e) { e.printStackTrace(); }
     }
 
     @Override
     public void save(Warp warp) {
-        String sql = "INSERT OR REPLACE INTO warps(name,world,x,y,z,yaw,pitch) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT OR REPLACE INTO warps(name,world,x,y,z,yaw,pitch,slot,icon) VALUES(?,?,?,?,?,?,?,?,?)";
         try (Connection c = pool.connection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, warp.name());
             ps.setString(2, warp.world());
@@ -37,6 +37,8 @@ public class WarpSqlStorage implements WarpStorage {
             ps.setDouble(5, warp.z());
             ps.setFloat(6, warp.yaw());
             ps.setFloat(7, warp.pitch());
+            ps.setInt(8, warp.slot());
+            ps.setString(9, warp.icon());
             ps.executeUpdate();
         } catch (SQLException e) { e.printStackTrace(); }
     }
@@ -47,7 +49,11 @@ public class WarpSqlStorage implements WarpStorage {
         try (Connection c = pool.connection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return new Warp(rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getFloat("yaw"), rs.getFloat("pitch"));
+            if (rs.next()) {
+                int slot = safeInt(rs, "slot", -1);
+                String icon = safeString(rs, "icon", "ENDER_PEARL");
+                return new Warp(rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getFloat("yaw"), rs.getFloat("pitch"), slot, icon);
+            }
         } catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
@@ -57,7 +63,11 @@ public class WarpSqlStorage implements WarpStorage {
         List<Warp> list = new ArrayList<>();
         try (Connection c = pool.connection(); PreparedStatement ps = c.prepareStatement("SELECT * FROM warps")) {
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) list.add(new Warp(rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getFloat("yaw"), rs.getFloat("pitch")));
+            while (rs.next()) {
+                int slot = safeInt(rs, "slot", -1);
+                String icon = safeString(rs, "icon", "ENDER_PEARL");
+                list.add(new Warp(rs.getString("name"), rs.getString("world"), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), rs.getFloat("yaw"), rs.getFloat("pitch"), slot, icon));
+            }
         } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }
@@ -74,6 +84,13 @@ public class WarpSqlStorage implements WarpStorage {
     public void rename(String oldName, String newName) {
         Warp w = load(oldName);
         delete(oldName);
-        if (Objects.nonNull(w)) save(new Warp(newName, w.world(), w.x(), w.y(), w.z(), w.yaw(), w.pitch()));
+        if (Objects.nonNull(w)) save(new Warp(newName, w.world(), w.x(), w.y(), w.z(), w.yaw(), w.pitch(), w.slot(), w.icon()));
+    }
+
+    private int safeInt(ResultSet rs, String col, int def){
+        try { return rs.getInt(col); } catch (SQLException e){ return def; }
+    }
+    private String safeString(ResultSet rs, String col, String def){
+        try { String v = rs.getString(col); return v==null?def:v; } catch (SQLException e){ return def; }
     }
 }

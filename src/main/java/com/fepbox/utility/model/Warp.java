@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-public record Warp(String name, String world, double x, double y, double z, float yaw, float pitch) {
+public record Warp(String name, String world, double x, double y, double z, float yaw, float pitch, int slot, String icon) {
     public Location toLocation() {
         World w = Bukkit.getWorld(world);
         if (w == null) return null;

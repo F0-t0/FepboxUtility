@@ -3,10 +3,13 @@ package com.fepbox.utility.command;
 import com.fepbox.utility.config.ConfigManager;
 import com.fepbox.utility.config.MessageProvider;
 import org.bukkit.Material;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
 
 public class HatCommand extends BaseCommand {
     public HatCommand(JavaPlugin plugin, com.fepbox.utility.service.UtilityService util, ConfigManager cfg, MessageProvider msg){
@@ -30,5 +33,13 @@ public class HatCommand extends BaseCommand {
         p.getInventory().setItemInMainHand(old);
         msg.send(p,"hat-set");
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (args.length == 1) {
+            return "off".startsWith(args[0].toLowerCase()) ? java.util.List.of("off") : java.util.Collections.emptyList();
+        }
+        return java.util.Collections.emptyList();
     }
 }

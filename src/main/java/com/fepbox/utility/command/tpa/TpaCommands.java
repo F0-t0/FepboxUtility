@@ -7,8 +7,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class TpaCommands {
     private final JavaPlugin plugin;
@@ -21,19 +27,31 @@ public class TpaCommands {
     }
 
     public void registerAll(){
-        reg("tpa", this::tpa);
-        reg("tpahere", this::tpahere);
-        reg("tpaccept", this::accept);
-        reg("tpdeny", this::deny);
-        reg("tpacancel", this::cancel);
-        reg("tpacancelall", this::cancel);
-        reg("tpatoggle", this::toggle);
-        reg("tpignore", this::ignore);
+        reg("tpa", this::tpa, this::tabPlayers);
+        reg("tpahere", this::tpahere, this::tabPlayers);
+        reg("tpaccept", this::accept, null);
+        reg("tpdeny", this::deny, null);
+        reg("tpacancel", this::cancel, null);
+        reg("tpacancelall", this::cancel, null);
+        reg("tpatoggle", this::toggle, null);
+        reg("tpignore", this::ignore, this::tabPlayers);
     }
 
-    private void reg(String name, CommandExecutor exec){
+    private void reg(String name, CommandExecutor exec, TabCompleter tab){
         org.bukkit.command.PluginCommand cmd = plugin.getCommand(name);
-        if (cmd!=null) cmd.setExecutor(exec);
+        if (cmd!=null){
+            cmd.setExecutor(exec);
+            if (tab!=null) cmd.setTabCompleter(tab);
+        }
+    }
+
+    private List<String> online(String prefix){
+        String low = prefix==null?"" : prefix.toLowerCase(Locale.ROOT);
+        return plugin.getServer().getOnlinePlayers().stream()
+                .map(Player::getName)
+                .filter(n->n.toLowerCase(Locale.ROOT).startsWith(low))
+                .sorted()
+                .collect(Collectors.toList());
     }
 
     private boolean tpa(CommandSender sender, Command command, String label, String[] args){
@@ -86,5 +104,10 @@ public class TpaCommands {
         if (target==null){ msg.send(sender,"invalid-player"); return true; }
         service.ignore(p, target);
         return true;
+    }
+
+    private List<String> tabPlayers(CommandSender sender, Command cmd, String alias, String[] args){
+        if (args.length==1) return online(args[0]);
+        return Collections.emptyList();
     }
 }

@@ -4,9 +4,12 @@ import com.fepbox.utility.config.ConfigManager;
 import com.fepbox.utility.config.MessageProvider;
 import com.fepbox.utility.service.UtilityService;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
 
 public class FeedCommand extends BaseCommand {
     private final UtilityService util;
@@ -21,5 +24,11 @@ public class FeedCommand extends BaseCommand {
         util.feed(target);
         msg.send(target,"feed-done");
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (args.length == 1) return onlinePlayers(args[0]);
+        return java.util.Collections.emptyList();
     }
 }

@@ -7,9 +7,12 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
 
 public class MsgCommand extends BaseCommand {
     private final UtilityService util;
@@ -34,5 +37,11 @@ public class MsgCommand extends BaseCommand {
         target.sendMessage(click);
         util.rememberMsg(sp, target);
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (args.length == 1) return onlinePlayers(args[0]);
+        return java.util.Collections.emptyList();
     }
 }

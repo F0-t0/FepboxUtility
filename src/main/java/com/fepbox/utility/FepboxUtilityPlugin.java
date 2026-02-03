@@ -82,6 +82,7 @@ public final class FepboxUtilityPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerMoveListener(utilService, warpService, homeService, tpaService, cfg, msg), this);
         getServer().getPluginManager().registerEvents(new InventoryListener(cfg, msg), this);
         getServer().getPluginManager().registerEvents(new CombatListener(utilService, cfg), this);
+        getServer().getPluginManager().registerEvents(new com.fepbox.utility.listener.ChatCreateWarpListener(warpService), this);
     }
 
     private void register(BaseCommand cmd){

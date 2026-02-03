@@ -54,6 +54,8 @@ public class HomeService {
         p.sendMessage(msg.parse("<yellow>Homes: " + sb));
     }
 
+    public java.util.List<Home> list(UUID owner){ return storage.list(owner); }
+
     public Home find(Player p, String name){ return storage.load(p.getUniqueId(), name.toLowerCase()); }
 
     public void teleport(Player p, Home home){

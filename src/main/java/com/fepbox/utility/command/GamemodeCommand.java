@@ -5,9 +5,12 @@ import com.fepbox.utility.config.MessageProvider;
 import com.fepbox.utility.service.UtilityService;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
 
 public class GamemodeCommand extends BaseCommand {
     private final UtilityService util;
@@ -37,5 +40,16 @@ public class GamemodeCommand extends BaseCommand {
         msg.send(target, "gm-changed", "<mode>", gm.name());
         if (!target.equals(sender)) msg.send(sender, "gm-changed-other", "<mode>", gm.name(), "<player>", target.getName());
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (args.length == 1) {
+            return java.util.List.of("0","1","2","3","s","c","a","sp").stream()
+                    .filter(s -> s.startsWith(args[0].toLowerCase()))
+                    .toList();
+        }
+        if (args.length == 2) return onlinePlayers(args[1]);
+        return java.util.Collections.emptyList();
     }
 }

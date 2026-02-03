@@ -48,7 +48,9 @@ public class WarpGui extends PaginatedGui {
         List<ItemStack> list = new ArrayList<>();
         for (Warp w : warps){
             if (!viewer.hasPermission("fepboxutility.warp." + w.name()) && !viewer.hasPermission("fepboxutility.*")) continue;
-            ItemStack item = new ItemStack(Material.ENDER_PEARL);
+            ItemStack item;
+            try { item = new ItemStack(Material.valueOf(w.icon())); }
+            catch (IllegalArgumentException ex){ item = new ItemStack(Material.ENDER_PEARL); }
             ItemMeta meta = item.getItemMeta();
             meta.displayName(mm.deserialize("<yellow>"+w.name()+"</yellow>"));
             meta.lore(List.of(

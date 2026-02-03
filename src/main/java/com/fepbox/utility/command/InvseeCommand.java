@@ -24,4 +24,10 @@ public class InvseeCommand extends BaseCommand {
         msg.send(p,"invsee-opened","<player>", target.getName());
         return true;
     }
+
+    @Override
+    public java.util.List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String alias, String[] args) {
+        if (args.length == 1) return onlinePlayers(args[0]);
+        return java.util.Collections.emptyList();
+    }
 }

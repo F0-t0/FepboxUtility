@@ -21,6 +21,11 @@ public class InventoryListener implements Listener {
                 gui.handleClick(e);
                 return;
             }
+            com.fepbox.utility.gui.CreateWarpGui creator = com.fepbox.utility.gui.CreateWarpGui.current(p);
+            if (creator != null && e.getInventory().equals(creator.inventory())){
+                creator.handleClick(e);
+                return;
+            }
         }
         String title = e.getView().getTitle().toLowerCase();
         if (cfg.raw().getBoolean("enderchest.readonly", true) && title.contains("ender chest")){

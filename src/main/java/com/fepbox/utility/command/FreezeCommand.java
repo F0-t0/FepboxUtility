@@ -35,4 +35,11 @@ public class FreezeCommand extends BaseCommand {
         }
         return true;
     }
+
+    @Override
+    public java.util.List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String alias, String[] args) {
+        if (args.length == 1) return onlinePlayers(args[0]);
+        if (args.length == 2) return java.util.List.of("on","off").stream().filter(s->s.startsWith(args[1].toLowerCase())).toList();
+        return java.util.Collections.emptyList();
+    }
 }

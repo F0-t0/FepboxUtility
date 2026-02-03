@@ -32,4 +32,10 @@ public class EnderChestCommand extends BaseCommand {
         msg.send(sender,"ec-opened");
         return true;
     }
+
+    @Override
+    public java.util.List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String alias, String[] args) {
+        if (args.length == 1) return onlinePlayers(args[0]);
+        return java.util.Collections.emptyList();
+    }
 }

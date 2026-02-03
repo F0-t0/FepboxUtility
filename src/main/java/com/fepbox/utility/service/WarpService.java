@@ -22,6 +22,9 @@ public class WarpService {
     private final MessageProvider msg;
     private final TeleportService tp;
     private final ConcurrentHashMap<UUID, Long> warmups = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<UUID, PendingWarp> pendingCreate = new ConcurrentHashMap<>();
+
+    public record PendingWarp(Location loc, int slot, String icon){}
 
     public WarpService(JavaPlugin plugin, WarpStorage storage, CooldownService cd, ConfigManager cfg, MessageProvider msg, TeleportService tp){
         this.plugin = plugin; this.storage = storage; this.cd = cd; this.cfg = cfg; this.msg = msg; this.tp = tp;
@@ -30,7 +33,13 @@ public class WarpService {
 
     public void setWarp(Player p, String name){
         Location l = p.getLocation();
-        storage.save(new Warp(name.toLowerCase(), l.getWorld().getName(), l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch()));
+        storage.save(new Warp(name.toLowerCase(), l.getWorld().getName(), l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch(), -1, "ENDER_PEARL"));
+        msg.send(p, "warp-set", "<name>", name);
+    }
+
+    public void setWarp(Player p, String name, int slot, String icon){
+        Location l = p.getLocation();
+        storage.save(new Warp(name.toLowerCase(), l.getWorld().getName(), l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch(), slot, icon));
         msg.send(p, "warp-set", "<name>", name);
     }
 
@@ -69,4 +78,22 @@ public class WarpService {
 
     public boolean isInWarmup(UUID id){ return warmups.containsKey(id); }
     public void cancelWarmup(UUID id){ warmups.remove(id); }
+
+    public void beginCreation(Player p, int slot, String icon){
+        pendingCreate.put(p.getUniqueId(), new PendingWarp(p.getLocation(), slot, icon));
+        p.closeInventory();
+        p.sendMessage(msg.parse("<yellow>Podaj nazwę warpa na czacie.</yellow>"));
+    }
+
+    public boolean completeCreation(Player p, String name){
+        PendingWarp pending = pendingCreate.remove(p.getUniqueId());
+        if (pending == null) return false;
+        storage.save(new Warp(name.toLowerCase(), pending.loc().getWorld().getName(), pending.loc().getX(), pending.loc().getY(), pending.loc().getZ(), pending.loc().getYaw(), pending.loc().getPitch(), pending.slot(), pending.icon()));
+        msg.send(p, "warp-set", "<name>", name);
+        return true;
+    }
+
+    public boolean isSlotUsed(int slot){
+        return storage.list().stream().anyMatch(w -> w.slot() == slot);
+    }
 }
