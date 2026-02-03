@@ -1,0 +1,54 @@
+storage:
+  type: YAML # YAML | SQLITE | MYSQL
+  mysql:
+    host: localhost
+    port: 3306
+    database: fepbox
+    user: root
+    password: password
+modules:
+  gm: true
+  repair: true
+  heal: true
+  feed: true
+  msg: true
+  hat: true
+  ec: true
+  fly: true
+  freeze: true
+  kickall: true
+  warps: true
+  homes: true
+  tpa: true
+cooldowns:
+  repair: 60
+  fly: 0
+  warp: 5
+  home: 5
+  tpa: 5
+warmups:
+  warp: 3
+  home: 3
+teleport:
+  cancel-on-move: true
+  safe: true
+  blocked-worlds: []
+warps:
+  gui-size: 54
+  blacklist: []
+homes:
+  default-limit: 1
+  ranks:
+    vip: 3
+    mvp: 5
+fly:
+  disable-on-combat: true
+  combat-tag-seconds: 15
+freeze:
+  timeout: 120
+  bypass-permission: fepboxutility.freeze.bypass
+enderchest:
+  admin-logging: true
+  readonly: true
+invsee:
+  readonly: false

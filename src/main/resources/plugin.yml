@@ -1,0 +1,41 @@
+name: Fepbox-Utility
+main: com.fepbox.utility.FepboxUtilityPlugin
+version: 1.0.0
+api-version: 1.21.4
+load: POSTWORLD
+commands:
+  gm: {usage: "/gm <mode> [player]", description: "Change gamemode"}
+  repair: {usage: "/repair [all] [player]", description: "Repair items"}
+  heal: {usage: "/heal [player]", description: "Heal player"}
+  feed: {usage: "/feed [player]", description: "Feed player"}
+  msg: {usage: "/msg <player> <message>", description: "Private message"}
+  r: {usage: "/r <message>", description: "Reply to last message"}
+  hat: {usage: "/hat [off]", description: "Wear item as hat"}
+  ec: {usage: "/ec [player]", description: "Open ender chest"}
+  fly: {usage: "/fly [player] [on|off]", description: "Toggle fly"}
+  freeze: {usage: "/freeze <player> [on|off]", description: "Freeze player"}
+  kickall: {usage: "/kickall [reason]", description: "Kick everyone"}
+  fpreload: {usage: "/fpreload", description: "Reload Fepbox-Utility config/messages"}
+  setwarp: {usage: "/setwarp <name>", description: "Create warp"}
+  createwarp: {usage: "/createwarp <name>", description: "Create warp (alias)"}
+  warp: {usage: "/warp <name> [player]", description: "Teleport to warp"}
+  warps: {usage: "/warps", description: "Warp GUI"}
+  delwarp: {usage: "/delwarp <name>", description: "Delete warp"}
+  renamework: {usage: "/renamework <old> <new>", description: "Rename warp"}
+  warpinfo: {usage: "/warpinfo <name>", description: "Warp info"}
+  sethome: {usage: "/sethome [name]", description: "Set home"}
+  home: {usage: "/home [name]", description: "Teleport home"}
+  homes: {usage: "/homes", description: "List homes"}
+  delhome: {usage: "/delhome <name>", description: "Delete home"}
+  renamehome: {usage: "/renamehome <old> <new>", description: "Rename home"}
+  tpa: {usage: "/tpa <player>", description: "Request teleport"}
+  tpahere: {usage: "/tpahere <player>", description: "Ask player to teleport here"}
+  tpaccept: {usage: "/tpaccept", description: "Accept TPA"}
+  tpdeny: {usage: "/tpdeny", description: "Deny TPA"}
+  tpacancel: {usage: "/tpacancel", description: "Cancel outgoing TPA"}
+  tpacancelall: {usage: "/tpacancelall", description: "Cancel all outgoing TPA"}
+  tpatoggle: {usage: "/tpatoggle", description: "Toggle TPA receiving"}
+  tpignore: {usage: "/tpignore <player>", description: "Ignore TPA sender"}
+  invsee: {usage: "/invsee <player>", description: "View player inventory"}
+permissions:
+  fepboxutility.*: {description: "Master permission", default: op}
