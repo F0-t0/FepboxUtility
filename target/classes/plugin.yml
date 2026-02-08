@@ -44,3 +44,6 @@ permissions:
   fepboxutility.*: {description: "Master permission", default: op}
   fepboxutility.alias: {description: "Manage command aliases", default: op}
   fepboxutility.tpb: {description: "Use /tpb", default: op}
+  fepboxutility.ec: {description: "Open own enderchest", default: op}
+  fepboxutility.ec.other: {description: "Open others' enderchests with /ec <player>", default: op}
+  fepboxutility.repair.all: {description: "Repair all items with /repair all", default: op}
