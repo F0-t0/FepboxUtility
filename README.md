@@ -26,6 +26,13 @@ Lightweight utility plugin for modern Paper/Spigot servers (API 1.21.4). Provide
 
 *Homes per-slot permissions: `home.1`, `home.2`, ... (or `fepboxutility.home.N`). Slots without permission show bedrock.
 
+## Permissions
+- `fepboxutility.*` — master.
+- Core: `fepboxutility.gm`, `fepboxutility.repair`, `fepboxutility.heal`, `fepboxutility.feed`, `fepboxutility.fly`, `fepboxutility.freeze`, `fepboxutility.kickall`, `fepboxutility.msg`, `fepboxutility.r`, `fepboxutility.hat`, `fepboxutility.invsee`, `fepboxutility.ec`, `fepboxutility.reload`, `fepboxutility.tpb`.
+- Homes/Warps/TPA: `fepboxutility.sethome`, `fepboxutility.home` (+ per-slot `home.N`), `fepboxutility.homes`, `fepboxutility.warp.*`, `fepboxutility.tpa`.
+- Aliases: `fepboxutility.alias`.
+- Bypass: `fepboxutility.home.bypass` (cooldown), `fepboxutility.repair.bypass` (cooldown), `fepboxutility.freeze.bypass` (avoid freeze), `fepboxutility.fly.bypass` (combat disable).
+
 ## Configuration
 - `config.yml` toggles modules under `modules.*`, sets storage type (`YAML`, `SQLITE`, `MYSQL`), GUI sizes, cooldowns, warmups, read-only flags for `enderchest`/`invsee`, and `homes.gui-slots` (default 5).
 - `messages.yml` contains MiniMessage-formatted messages with a configurable `prefix`.
