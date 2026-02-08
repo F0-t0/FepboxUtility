@@ -31,6 +31,8 @@ Lightweight utility plugin for modern Paper/Spigot servers (API 1.21.4). Provide
 - Core: `fepboxutility.gm`, `fepboxutility.repair`, `fepboxutility.heal`, `fepboxutility.feed`, `fepboxutility.fly`, `fepboxutility.freeze`, `fepboxutility.kickall`, `fepboxutility.msg`, `fepboxutility.r`, `fepboxutility.hat`, `fepboxutility.invsee`, `fepboxutility.ec`, `fepboxutility.reload`, `fepboxutility.tpb`.
 - Homes/Warps/TPA: `fepboxutility.sethome`, `fepboxutility.home` (+ per-slot `home.N`), `fepboxutility.homes`, `fepboxutility.warp.*`, `fepboxutility.tpa`.
 - Aliases: `fepboxutility.alias`.
+- Enderchest: `fepboxutility.ec` (own), `fepboxutility.ec.other` (others).
+- Repair: `fepboxutility.repair.all` for `/repair all`.
 - Bypass: `fepboxutility.home.bypass` (cooldown), `fepboxutility.repair.bypass` (cooldown), `fepboxutility.freeze.bypass` (avoid freeze), `fepboxutility.fly.bypass` (combat disable).
 
 ## Configuration

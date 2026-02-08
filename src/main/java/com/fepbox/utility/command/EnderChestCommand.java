@@ -18,12 +18,12 @@ public class EnderChestCommand extends BaseCommand {
         if (!has(sender,"fepboxutility.ec")) { deny(sender); return true; }
         Player target = args.length>0 ? Bukkit.getPlayer(args[0]) : sender instanceof Player p ? p : null;
         if (target==null){ msg.send(sender,"invalid-player"); return true; }
-        if (cfg.raw().getBoolean("enderchest.readonly", true) && sender instanceof Player sp && !sp.equals(target)){
-            // read-only; do not allow modification
-            sp.openInventory(target.getEnderChest());
-            return true;
-        }
         if (sender instanceof Player sp){
+            if (!sp.equals(target) && !has(sp, "fepboxutility.ec.other")) { deny(sp); return true; }
+            if (cfg.raw().getBoolean("enderchest.readonly", true) && !sp.equals(target)){
+                sp.openInventory(target.getEnderChest());
+                return true;
+            }
             sp.openInventory(target.getEnderChest());
             if (cfg.raw().getBoolean("enderchest.admin-logging", true) && !sp.equals(target)){
                 plugin.getLogger().info(sp.getName() + " opened enderchest of " + target.getName());

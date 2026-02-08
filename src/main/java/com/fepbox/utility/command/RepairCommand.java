@@ -24,6 +24,7 @@ public class RepairCommand extends BaseCommand {
         if (!cfg.module("repair")) return true;
         if (!has(sender, "fepboxutility.repair")) { deny(sender); return true; }
         boolean all = args.length>0 && args[0].equalsIgnoreCase("all");
+        if (all && !has(sender, "fepboxutility.repair.all")) { deny(sender); return true; }
         Player target;
         if (args.length>1) target = Bukkit.getPlayer(args[1]);
         else target = sender instanceof Player p ? p : null;
