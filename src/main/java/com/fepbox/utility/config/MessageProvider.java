@@ -45,4 +45,11 @@ public class MessageProvider {
     }
 
     public MiniMessage mini() { return mm; }
+
+    /**
+     * Returns raw message string (without prefix) for custom usage like GUI titles.
+     */
+    public String raw(String key, String def){
+        return cfg.getString("messages."+key, def);
+    }
 }

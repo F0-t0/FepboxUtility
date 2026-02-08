@@ -7,6 +7,8 @@ com\fepbox\utility\command\KickAllCommand.class
 com\fepbox\utility\listener\CombatListener.class
 com\fepbox\utility\listener\InventoryListener.class
 com\fepbox\utility\service\WarpService$PendingWarp.class
+com\fepbox\utility\command\TpbCommand.class
+com\fepbox\utility\service\AliasService.class
 com\fepbox\utility\command\ReplyCommand.class
 com\fepbox\utility\model\TpaRequest.class
 com\fepbox\utility\listener\PlayerMoveListener.class
@@ -14,6 +16,7 @@ com\fepbox\utility\command\BaseCommand.class
 com\fepbox\utility\service\TpaService.class
 com\fepbox\utility\command\warp\WarpCommands.class
 com\fepbox\utility\command\EnderChestCommand.class
+com\fepbox\utility\listener\AliasListener.class
 com\fepbox\utility\service\HomeService.class
 com\fepbox\utility\model\Warp.class
 com\fepbox\utility\storage\impl\yaml\HomeYamlStorage.class
@@ -26,7 +29,10 @@ com\fepbox\utility\storage\impl\sql\HomeSqlStorage.class
 com\fepbox\utility\command\tpa\TpaCommands.class
 com\fepbox\utility\service\TeleportService.class
 com\fepbox\utility\storage\dao\TpaStorage.class
+com\fepbox\utility\gui\InvseeGui.class
+com\fepbox\utility\gui\HomeGui.class
 com\fepbox\utility\gui\WarpGui.class
+com\fepbox\utility\command\DeleteAliasCommand.class
 com\fepbox\utility\storage\DatabasePool.class
 com\fepbox\utility\command\MsgCommand.class
 com\fepbox\utility\storage\impl\sql\WarpSqlStorage.class
@@ -34,6 +40,7 @@ com\fepbox\utility\command\ReloadCommand.class
 com\fepbox\utility\storage\impl\yaml\WarpYamlStorage.class
 com\fepbox\utility\service\UtilityService.class
 com\fepbox\utility\storage\impl\yaml\TpaYamlStorage.class
+com\fepbox\utility\command\CreateAliasCommand.class
 com\fepbox\utility\gui\CreateWarpGui.class
 com\fepbox\utility\storage\StorageType.class
 com\fepbox\utility\config\ConfigManager.class

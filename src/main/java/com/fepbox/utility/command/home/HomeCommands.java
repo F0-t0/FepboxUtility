@@ -63,7 +63,11 @@ public class HomeCommands {
     private boolean home(CommandSender sender, Command command, String label, String[] args){
         if (!cfg.module("homes")) return true;
         if (!(sender instanceof Player p)){ msg.send(sender,"player-only"); return true; }
-        String name = args.length>0 ? args[0] : "home";
+        if (args.length == 0){
+            new com.fepbox.utility.gui.HomeGui(p, service, msg, cfg).open();
+            return true;
+        }
+        String name = args[0];
         Home h = service.find(p, name);
         if (h==null){ msg.send(sender,"home-deleted","<name>", name); return true; }
         service.teleport(p, h);

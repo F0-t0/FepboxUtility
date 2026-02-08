@@ -37,5 +37,10 @@ commands:
   tpatoggle: {usage: "/tpatoggle", description: "Toggle TPA receiving"}
   tpignore: {usage: "/tpignore <player>", description: "Ignore TPA sender"}
   invsee: {usage: "/invsee <player>", description: "View player inventory"}
+  createalias: {usage: "/createalias <alias> <command...>", description: "Create a command alias"}
+  deletealias: {usage: "/deletealias <alias>", description: "Delete a command alias"}
+  tpb: {usage: "/tpb", description: "Teleport yourself onto block center (snap X/Z to .5)"}
 permissions:
   fepboxutility.*: {description: "Master permission", default: op}
+  fepboxutility.alias: {description: "Manage command aliases", default: op}
+  fepboxutility.tpb: {description: "Use /tpb", default: op}

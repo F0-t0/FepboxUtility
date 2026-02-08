@@ -1,4 +1,6 @@
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\BaseCommand.java
+C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\CreateAliasCommand.java
+C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\DeleteAliasCommand.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\EnderChestCommand.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\FeedCommand.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\FlyCommand.java
@@ -14,13 +16,17 @@ C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\ReloadCommand
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\RepairCommand.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\ReplyCommand.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\tpa\TpaCommands.java
+C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\TpbCommand.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\command\warp\WarpCommands.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\config\ConfigManager.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\config\MessageProvider.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\FepboxUtilityPlugin.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\gui\CreateWarpGui.java
+C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\gui\HomeGui.java
+C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\gui\InvseeGui.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\gui\PaginatedGui.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\gui\WarpGui.java
+C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\listener\AliasListener.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\listener\ChatCreateWarpListener.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\listener\CombatListener.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\listener\InventoryListener.java
@@ -28,6 +34,7 @@ C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\listener\PlayerMoveLi
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\model\Home.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\model\TpaRequest.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\model\Warp.java
+C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\service\AliasService.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\service\CooldownService.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\service\HomeService.java
 C:\DB\Repos\FepboxUtility\src\main\java\com\fepbox\utility\service\TeleportService.java

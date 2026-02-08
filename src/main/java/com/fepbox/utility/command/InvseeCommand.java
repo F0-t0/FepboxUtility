@@ -2,6 +2,7 @@ package com.fepbox.utility.command;
 
 import com.fepbox.utility.config.ConfigManager;
 import com.fepbox.utility.config.MessageProvider;
+import com.fepbox.utility.gui.InvseeGui;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,7 +21,8 @@ public class InvseeCommand extends BaseCommand {
         if (args.length<1){ usage(sender,"/invsee <gracz>"); return true; }
         Player target = Bukkit.getPlayer(args[0]);
         if (target==null){ msg.send(sender,"invalid-player"); return true; }
-        p.openInventory(target.getInventory());
+        InvseeGui gui = new InvseeGui(p, target);
+        gui.open();
         msg.send(p,"invsee-opened","<player>", target.getName());
         return true;
     }

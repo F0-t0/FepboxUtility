@@ -8,6 +8,7 @@ import com.fepbox.utility.config.ConfigManager;
 import com.fepbox.utility.config.MessageProvider;
 import com.fepbox.utility.listener.CombatListener;
 import com.fepbox.utility.listener.InventoryListener;
+import com.fepbox.utility.listener.AliasListener;
 import com.fepbox.utility.listener.PlayerMoveListener;
 import com.fepbox.utility.service.*;
 import com.fepbox.utility.storage.StorageType;
@@ -28,6 +29,7 @@ public final class FepboxUtilityPlugin extends JavaPlugin {
     private HomeService homeService;
     private TpaService tpaService;
     private UtilityService utilService;
+    private AliasService aliasService;
 
     @Override
     public void onEnable() {
@@ -61,6 +63,7 @@ public final class FepboxUtilityPlugin extends JavaPlugin {
         this.homeService = new HomeService(this, homeStorage, cooldownService, cfg, msg, tpService);
         this.tpaService = new TpaService(this, tpaStorage, cooldownService, cfg, msg, tpService);
         this.utilService = new UtilityService(this, cfg, msg, cooldownService);
+        this.aliasService = new AliasService(this, cfg);
 
         register(new GamemodeCommand(this, utilService, cfg, msg));
         register(new RepairCommand(this, utilService, cfg, msg));
@@ -73,16 +76,20 @@ public final class FepboxUtilityPlugin extends JavaPlugin {
         register(new FlyCommand(this, utilService, cfg, msg));
         register(new FreezeCommand(this, utilService, cfg, msg));
         register(new KickAllCommand(this, utilService, cfg, msg));
-        register(new ReloadCommand(this, cfg, msg));
+        register(new ReloadCommand(this, cfg, msg, aliasService));
         register(new InvseeCommand(this, cfg, msg));
+        register(new CreateAliasCommand(this, aliasService, cfg, msg));
+        register(new DeleteAliasCommand(this, aliasService, cfg, msg));
+        register(new TpbCommand(this, cfg, msg));
         new WarpCommands(this, warpService, cfg, msg).registerAll();
         new HomeCommands(this, homeService, cfg, msg).registerAll();
         new TpaCommands(this, tpaService, cfg, msg).registerAll();
 
         getServer().getPluginManager().registerEvents(new PlayerMoveListener(utilService, warpService, homeService, tpaService, cfg, msg), this);
-        getServer().getPluginManager().registerEvents(new InventoryListener(cfg, msg), this);
+        getServer().getPluginManager().registerEvents(new InventoryListener(this, cfg, msg), this);
         getServer().getPluginManager().registerEvents(new CombatListener(utilService, cfg), this);
         getServer().getPluginManager().registerEvents(new com.fepbox.utility.listener.ChatCreateWarpListener(warpService), this);
+        getServer().getPluginManager().registerEvents(new AliasListener(aliasService), this);
     }
 
     private void register(BaseCommand cmd){

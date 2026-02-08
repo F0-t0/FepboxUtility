@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import org.bukkit.scheduler.BukkitTask;
 
 public class WarpService {
     private final JavaPlugin plugin;
@@ -21,7 +22,7 @@ public class WarpService {
     private final ConfigManager cfg;
     private final MessageProvider msg;
     private final TeleportService tp;
-    private final ConcurrentHashMap<UUID, Long> warmups = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<UUID, BukkitTask> warmups = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<UUID, PendingWarp> pendingCreate = new ConcurrentHashMap<>();
 
     public record PendingWarp(Location loc, int slot, String icon){}
@@ -71,13 +72,20 @@ public class WarpService {
         };
         if (warm > 0){
             msg.send(p, "warmup", "<seconds>", String.valueOf(warm));
-            warmups.put(p.getUniqueId(), Instant.now().getEpochSecond() + warm);
-            plugin.getServer().getScheduler().runTaskLater(plugin, doTp, warm * 20L);
+            BukkitTask task = plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                if (warmups.remove(p.getUniqueId()) != null) {
+                    doTp.run();
+                }
+            }, warm * 20L);
+            warmups.put(p.getUniqueId(), task);
         } else doTp.run();
     }
 
     public boolean isInWarmup(UUID id){ return warmups.containsKey(id); }
-    public void cancelWarmup(UUID id){ warmups.remove(id); }
+    public void cancelWarmup(UUID id){
+        BukkitTask task = warmups.remove(id);
+        if (task != null) task.cancel();
+    }
 
     public void beginCreation(Player p, int slot, String icon){
         pendingCreate.put(p.getUniqueId(), new PendingWarp(p.getLocation(), slot, icon));

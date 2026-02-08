@@ -20,6 +20,8 @@ modules:
   warps: true
   homes: true
   tpa: true
+  alias: true
+  tpb: true
 cooldowns:
   repair: 60
   fly: 0
@@ -37,6 +39,7 @@ warps:
   gui-size: 54
   blacklist: []
 homes:
+  gui-slots: 5
   default-limit: 1
   ranks:
     vip: 3
@@ -52,3 +55,4 @@ enderchest:
   readonly: true
 invsee:
   readonly: false
+aliases: {}

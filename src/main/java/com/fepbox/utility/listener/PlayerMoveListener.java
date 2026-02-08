@@ -30,9 +30,12 @@ public class PlayerMoveListener implements Listener {
             return;
         }
         if (!cfg.raw().getBoolean("teleport.cancel-on-move", true)) return;
-        if (e.getFrom().getX()!=e.getTo().getX() || e.getFrom().getZ()!=e.getTo().getZ()){
-            if (warp.isInWarmup(p.getUniqueId())){ warp.cancelWarmup(p.getUniqueId()); msg.send(p,"teleport-cancelled"); }
-            if (home.isInWarmup(p.getUniqueId())){ home.cancelWarmup(p.getUniqueId()); msg.send(p,"teleport-cancelled"); }
+        // cancel only when player changes block coordinates, rotations alone are allowed
+        if (e.getFrom().getBlockX()!=e.getTo().getBlockX() || e.getFrom().getBlockY()!=e.getTo().getBlockY() || e.getFrom().getBlockZ()!=e.getTo().getBlockZ()){
+            boolean cancelled = false;
+            if (warp.isInWarmup(p.getUniqueId())){ warp.cancelWarmup(p.getUniqueId()); cancelled = true; }
+            if (home.isInWarmup(p.getUniqueId())){ home.cancelWarmup(p.getUniqueId()); cancelled = true; }
+            if (cancelled) msg.send(p,"teleport-cancelled");
         }
     }
 }

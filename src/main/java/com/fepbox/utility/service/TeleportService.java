@@ -31,6 +31,12 @@ public class TeleportService {
         return true;
     }
 
+    /** Returns a safe landing location or null if none found (used for pre-checks). */
+    public Location safeLocation(Location target){
+        if (!cfg.raw().getBoolean("teleport.safe", true)) return target;
+        return findSafe(target.clone());
+    }
+
     private Location findSafe(Location loc){
         for (int dy = 0; dy < 3; dy++) {
             Location check = loc.clone().add(0, dy, 0);
