@@ -11,7 +11,6 @@ public class ConfigManager {
 
     public ConfigManager(JavaPlugin plugin) {
         this.plugin = plugin;
-        plugin.saveDefaultConfig();
     }
 
     public FileConfiguration raw() { return plugin.getConfig(); }
